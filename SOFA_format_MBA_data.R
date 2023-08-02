@@ -182,7 +182,7 @@ dive_join <- dive_build1 %>%
 	#filter(success == "y")
 
 index_join <- index_build1 %>%
-	dplyr::select(bout, date, otterno, sex, ageclass, status)%>%
+#	dplyr::select(bout, date, otterno, sex, ageclass, status)%>%
 	mutate_if(is.character, str_trim)
 
 
@@ -202,17 +202,26 @@ anti_build2 <- anti_join(data_build1, index_join, by="bout")
 data_build3 <- data_build2 %>%
 	#set user-defined fields
 	mutate(Region = "CALI", 
-				 Area = "MONT",
+				 #Area = "MONT",
 				 Site = "MONT",
 				 Period = "2016-2020",
 				 Date = format(date, "%m/%d/%Y"),
 				 Season = case_when(
 				 	month(date) %in% 5:10 ~ "summer",
 				 	TRUE ~ "winter"
-				 )
+				 ),
+				 Prop_Lost = 0, #set 0 for now, but requires formuls
+				 How_Lost = "stolen", #requires mod
+				 Est_kg = NA, 
+				 Est_cm = NA
 				 )%>%
-	dplyr::select(Region, Area, Site, Period, Date, Season, foragdiv_id, foragdata_id, bout, subbout,
-								lat, long, otterno, everything()
+	#THESE FIELDS ARE REQUIRED FOR SOFA TO RUN
+	dplyr::select(Region, Area = area, Site, Period, Date, Season, Sex = sex, AgeClass = ageclass,
+								Pup = status, Ottername = otterno, Bout = bout, Subbout = subbout,
+								TimeStart = timestart.y, TimeEnd = timeend.y, Divenum = divenum,
+								DT = dt, ST = st, Success = success, Prey = prey, N_Items = preynum,
+								Size = size, Qualifier = qualifier, HT = ht, Prop_Lost,
+								How_Lost, Est_kg, Est_cm
 	)
 
 
