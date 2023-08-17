@@ -211,9 +211,8 @@ data_build3 <- data_build2 %>%
 				 	TRUE ~ "winter"
 				 ),
 				 Prop_Lost = 0, #set 0 for now, but requires formuls
-				 How_Lost = "stolen", #requires mod
-				 Est_kg = NA, 
-				 Est_cm = NA
+				 How_Lost = NA, #requires mod ... create new column "discarded" and if proportion lost > 0, Or maybe create new dummy var
+				 Est_kg = NA
 				 )%>%
 	#THESE FIELDS ARE REQUIRED FOR SOFA TO RUN
 	dplyr::select(Region, Area = area, Site, Period, Date, Season, Sex = sex, AgeClass = ageclass,
@@ -221,7 +220,7 @@ data_build3 <- data_build2 %>%
 								TimeStart = timestart.y, TimeEnd = timeend.y, Divenum = divenum,
 								DT = dt, ST = st, Success = success, Prey = prey, N_Items = preynum,
 								Size = size, Qualifier = qualifier, HT = ht, Prop_Lost,
-								How_Lost, Est_kg, Est_cm
+								How_Lost, Est_kg, Est_cm = sizecm
 	)
 
 
