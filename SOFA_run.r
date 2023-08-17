@@ -2,6 +2,9 @@
 # Step 2, Model fitting.
 # Source this script to fit the SOFA model to sea otter foraging data. 
 #
+
+rm(list=ls())
+
 require(svDialogs)
 require(rstudioapi)
 require(readxl)

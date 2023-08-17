@@ -9,7 +9,7 @@ librarian::shelf(tidyverse, readxl, here, janitor)
 
 #set directories 
 datin <- "/Volumes/seaotterdb$/kelp_recovery/data/foraging_data/raw"
-datout <- "/Volumes/seaotterdb$/kelp_recovery/data/foraging_data/processed"
+datout <- "/Volumes/seaotterdb$/kelp_recovery/data/foraging_data/processed/SOFA_explore"
 
 #get metadata 
 meta_raw <- read_xlsx(file.path(datin, "ForageKey_lookup_table.xlsx"))
@@ -224,9 +224,9 @@ data_build3 <- data_build2 %>%
 	)
 
 
-#write.csv(data_build3, file.path(datout, "foraging_data_2016_2023.csv"), row.names=FALSE)
+xlsx_file <- file.path(datout, "SOFA_explore.xlsx")
 
-
+write.xlsx(data_build3, xlsx_file, rowNames = FALSE)
 
 
 
